@@ -25,5 +25,13 @@ bool isPalindrome(int x)
 
 int main()
 {
-    isPalindrome(12321);
+    bool result = isPalindrome(12321);
+    if (result == true)
+    {
+        printf("Test Passed\n");
+    }
+    else
+    {
+        printf("Test Failed\n");
+    }
 }
