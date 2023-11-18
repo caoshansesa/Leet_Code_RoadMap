@@ -54,7 +54,7 @@ Node *AddLinkList(Node *head, Node *head2) {
     int carry = 0;
 
     while(current != NULL || current2 != NULL || carry != 0) {
-        int sum = carry;
+        int sum = carry; // This line awsome
         if (current != NULL) {
             sum += current->data;
             current = current->next;
