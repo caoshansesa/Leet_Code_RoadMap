@@ -1,76 +1,111 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     struct ListNode *next;
- * };
- */
 #include <stdio.h>
 #include <stdlib.h>
-typedef struct ListNode {
-    int val;
-    struct ListNode* next; // watch this type
+#include <string.h>
+#include <math.h>
+
+typedef struct LinkList{
+    int data;
+    struct LinkList *next;
 } Node;
 
-void addNodeToList(struct ListNode** head, int val)
-{
-    Node* new_node =  (Node*)malloc(sizeof(Node));
-    if (new_node == NULL)
-    {
-        printf("Allocate Memory Error");   /* code */
-        return;
+void printList(Node *head) {
+    while(head != NULL) {
+        printf("%d ", head->data);
+        head = head->next;
     }
-    // prepare the new node
-    new_node->next = NULL;
-    new_node->val = val;
-
-    if(*head == NULL) // if head is empty, which means this is the first node
-    {
-        // make the new_node as the head
-        *head = new_node;
-    }
-    else // The Link list is not null, attach the new node to the list
-    {
-        // We should travel to the end of the LinkList, and add the new node to the end of the LinkList
-        // or it will break the LinkList in middle if current head is not the last one.
-        Node* lastNodeInLinkList = *head;
-        while(lastNodeInLinkList->next != NULL)
-        {
-         lastNodeInLinkList = lastNodeInLinkList->next;
-        }
-        // We find the last node of the List
-        lastNodeInLinkList->next = new_node;  
-    }
-
+    printf("\n");
 }
 
-void printList(struct ListNode* head) 
+void freeList(Node *head) {
+    Node *tmp;
+    while (head != NULL) {
+        tmp = head;
+        head = head->next;
+        free(tmp);
+    }
+}
+
+void appendListList(Node **inputHead, int input_val)
 {
-    if(head == NULL)
+    // Alocate the memory for the newly attached node
+    Node * newNode = (Node *)malloc(sizeof(Node));
+    newNode->data = input_val;
+
+    // if the input node is empty, make the new node the head
+    if(*inputHead == NULL)
     {
-        printf("The LinkList is empty");
+        *inputHead = newNode;
     }
     else
     {
-        while(head != NULL)
+        Node *LastNodeofList = *inputHead;
+        while(LastNodeofList->next != NULL)
         {
-            printf("Link address: %p, value: %d\n", head, head->val);
-            head = head->next;
+            LastNodeofList = LastNodeofList->next;
         }
+        LastNodeofList->next = newNode;
     }
-}
 
-struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) {
-    
+}
+Node *AddLinkList(Node *head, Node *head2) {
+    Node *result = NULL;
+    Node *current = head;
+    Node *current2 = head2;
+    int carry = 0;
+
+    while(current != NULL || current2 != NULL || carry != 0) {
+        int sum = carry;
+        if (current != NULL) {
+            sum += current->data;
+            current = current->next;
+        }
+        if (current2 != NULL) {
+            sum += current2->data;
+            current2 = current2->next;
+        }
+        carry = sum / 10;
+        sum = sum % 10;
+        appendListList(&result, sum);
+    }
+    return result;
 }
 
 int main()
 {
-    struct ListNode* head = NULL;
-    addNodeToList(&head, 1);
-    addNodeToList(&head, 2);
-    addNodeToList(&head, 3);
-    addNodeToList(&head, 4);
-    addNodeToList(&head, 5);
+    Node *head = NULL;
+    appendListList(&head, 1);
+    appendListList(&head, 2);
+    appendListList(&head, 3);
+    appendListList(&head, 4);
+    appendListList(&head, 5);
+    appendListList(&head, 6);
+    appendListList(&head, 7);
+    appendListList(&head, 8);
+
+    Node *head2 = NULL;
+    appendListList(&head2, 1);
+    appendListList(&head2, 2);
+    appendListList(&head2, 3);
+    appendListList(&head2, 4);
+    appendListList(&head2, 5);
+    appendListList(&head2, 6);
+    appendListList(&head2, 7);
+    appendListList(&head2, 8);
+
+    printf("List 1: ");
     printList(head);
+
+    printf("List 2: ");
+    printList(head2);
+
+    Node *result = NULL;
+    result = AddLinkList(head, head2);
+    printf("Result: ");
+    printList(result);
+
+    // Free memory
+    freeList(head);
+    freeList(head2);
+    freeList(result);
+    return 0;
 }
