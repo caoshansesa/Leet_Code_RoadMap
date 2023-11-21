@@ -12,8 +12,15 @@ char* longestCommonPrefix(char** strs, int strsSize) {
     return strs[0];
 }
 int main() {
+    // the string already been stack as 
+    //strs = ["flower","flow","flight"]
+    //str[0] = "flower"
+    //str[1] = "flow"
+    //STR[2] = "flight"
+
     char* strs[] = {"flower", "flow", "flight"};
-    int strsSize = 3;
+    int strs:q
+    Size = 3;
     char* result = longestCommonPrefix(strs, strsSize);
     printf("Longest Common Prefix: %s\n", result);
     return 0;
