@@ -1,42 +1,77 @@
-#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-struct ListNode
+struct Node
 {
-    int val;
-    struct ListNode *next;
+    int data;
+    struct Node *next;
 };
 
-struct ListNode *reverseList(struct ListNode *head)
+// Function to reverse a linked list
+struct Node *reverseLinkedList(struct Node *head)
 {
-    // implementation of reverseList function
+    struct Node *prev = NULL;
+    struct Node *current = head;
+    struct Node *next = NULL;
+
+    while (current != NULL)
+    {
+        // Store the next node
+        next = current->next;
+
+        // Reverse the link
+        current->next = prev;
+
+        // Move pointers one step ahead
+        prev = current;
+        current = next;
+    }
+
+    // 'prev' now points to the new head
+    return prev;
 }
 
-void test_reverse_list_multiple_nodes()
+// Function to print a linked list
+void printLinkedList(struct Node *head)
 {
-    // create a linked list with multiple nodes
-    struct ListNode *node1 = (struct ListNode *)malloc(sizeof(struct ListNode));
-    struct ListNode *node2 = (struct ListNode *)malloc(sizeof(struct ListNode));
-    struct ListNode *node3 = (struct ListNode *)malloc(sizeof(struct ListNode));
-
-    node1->val = 1;
-    node1->next = node2;
-    node2->val = 2;
-    node2->next = node3;
-    node3->val = 3;
-    node3->next = NULL;
-
-    // call the reverseList function
-    struct ListNode *reversedList = reverseList(node1);
-
-    // assert the reversed list values
-    assert(reversedList->val == 3);
-    assert(reversedList->next->val == 2);
-    assert(reversedList->next->next->val == 1);
-
-    // free the memory allocated for the linked list
-    free(node1);
-    free(node2);
-    free(node3);
+    struct Node *current = head;
+    while (current != NULL)
+    {
+        printf("%d -> ", current->data);
+        current = current->next;
+    }
+    printf("NULL\n");
 }
+
+int main()
+{
+    // Create a sample linked list
+    struct Node *head = NULL;
+    for (int i = 5; i >= 1; i--)
+    {
+        struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
+        newNode->data = i;
+        newNode->next = head;
+        head = newNode;
+    }
+
+    printf("Original linked list: ");
+    printLinkedList(head);
+
+    // Reverse the linked list
+    head = reverseLinkedList(head);
+
+    printf("Reversed linked list: ");
+    printLinkedList(head);
+
+    // Free the memory
+    while (head != NULL)
+    {
+        struct Node *temp = head;
+        head = head->next;
+        free(temp);
+    }
+
+    return 0;
+}
+
