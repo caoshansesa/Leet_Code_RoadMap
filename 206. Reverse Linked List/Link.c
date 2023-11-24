@@ -23,6 +23,7 @@ Node* reverseLinkList(Node *inputLinkList)
     Node *prev = NULL;
     Node *current = inputLinkList;
     Node *next = NULL;
+    // Can we think these as 4 unit change value instead we typically see 3?
     while (current->next != NULL)
     {
 
