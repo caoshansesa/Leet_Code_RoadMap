@@ -26,12 +26,16 @@ Node* reverseLinkList(Node *inputLinkList)
     // Can we think these as 4 unit change value instead we typically see 3?
     while (current->next != NULL)
     {
-
-        next = current->next;
+        // can we think the next NODE is not going to be used, so we save the current -> next 
+        next = current->next; 
+        // then we change the current -> next to point to the previous node
         current->next = prev;
 
+        // then we update the previous node to be the current node
         prev = current;
+        // then we update the current node to be the next node, which is the current -> next
         current = next;
+        
     }
     return prev; 
 }
