@@ -12,7 +12,6 @@ int lengthOfLongestSubstring(char *s)
     // Declare the longest substring length.
     int lengthOFlongestSubStr = 0;
 
-    int indexer = 0;
     for (int i = 0; i < lengthOfStr; i++)
     {
         for (int j = i + 1; j < lengthOfStr; j++)
