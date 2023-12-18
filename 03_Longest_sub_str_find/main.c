@@ -18,7 +18,7 @@ int lengthOfLongestSubstring(char *s)
         {
             if (s[i] == s[j])
             {
-                // only find longest str if there is no repeat, if there is repeat, break, 
+                // only find longest str if there is no repeat, if there is repeat, break,
                 // save the longest substring length. that is the longest substring length for current index
                 // Then loop through next one, and compare, only keep the longer length
                 lengthOFlongestSubStr = fmax(lengthOFlongestSubStr, j - i);
